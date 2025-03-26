@@ -6,7 +6,7 @@ Esri's next generation network technology, the utility network, is completely ba
 
 Most of the slides are made available at [Esri Events > Proceedings](https://www.esri.com/en-us/about/events/index/proceedings).
 
-## Getting Started
+## Getting started
 
 1. Install the dependencies:
 
