@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>Demo</title>
+  </head>
+  <body>
+    <arcgis-map item-id="map-id-goes-here">
+      <arcgis-zoom position="bottom-left"></arcgis-zoom>
+      <arcgis-editor position="bottom-right"> </arcgis-editor>
+
+      <arcgis-placement position="top-left">
+        <calcite-action-bar id="edit-actions">
+          <calcite-action
+            id="start-edit"
+            icon="pencil"
+            text="Start editing"
+          ></calcite-action>
+          <calcite-action
+            disabled
+            id="stop-edit"
+            icon="save"
+            text="Stop editing (save)"
+          ></calcite-action>
+          <calcite-action
+            disabled
+            id="undo-edit"
+            icon="undo"
+            text="Undo edit"
+          ></calcite-action>
+          <calcite-action
+            disabled
+            id="redo-edit"
+            icon="redo"
+            text="Redo edit"
+          ></calcite-action>
+        </calcite-action-bar>
+      </arcgis-placement>
+    </arcgis-map>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
