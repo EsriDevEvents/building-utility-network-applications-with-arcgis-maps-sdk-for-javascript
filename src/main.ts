@@ -55,7 +55,7 @@ function handleMaybeError(result: any): void {
 }
 
 const mapElement = document.querySelector("arcgis-map") as HTMLArcgisMapElement;
-const versionComponent = document.createElement(
+const versionComponent = document.querySelector(
   "arcgis-version-management",
 ) as HTMLArcgisVersionManagementElement;
 
@@ -66,8 +66,6 @@ mapElement.addEventListener(
 
     versionComponent.view = view;
     versionComponent.versioningStates = await getVersioningStates(view, false);
-
-    view.ui.add(versionComponent, "top-right");
 
     const versioningState = await versionComponent.versioningStates
       .getItemAt(0)
