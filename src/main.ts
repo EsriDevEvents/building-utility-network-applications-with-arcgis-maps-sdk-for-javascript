@@ -5,15 +5,9 @@ import { getVersioningStates } from "@arcgis/core/versionManagement/utils";
 import "@arcgis/map-components/components/arcgis-editor";
 import "@arcgis/map-components/components/arcgis-map";
 import "@arcgis/map-components/components/arcgis-version-management";
-import "@arcgis/map-components/components/arcgis-version-management-service-item";
-import "@arcgis/map-components/components/arcgis-version-management-version-item";
-import "@arcgis/map-components/components/arcgis-version-management-version-list";
-import "@arcgis/map-components/components/arcgis-version-management-version-properties";
 import "@arcgis/map-components/components/arcgis-zoom";
-import "@arcgis/map-components/components/arcgis-placement";
 
 import { defineCustomElements } from "@esri/calcite-components/dist/loader";
-
 defineCustomElements(window);
 
 const startEditButton = document.getElementById(
@@ -61,7 +55,9 @@ function handleMaybeError(result: any): void {
 }
 
 const mapElement = document.querySelector("arcgis-map") as HTMLArcgisMapElement;
-const versionComponent = document.createElement("arcgis-version-management");
+const versionComponent = document.createElement(
+  "arcgis-version-management",
+) as HTMLArcgisVersionManagementElement;
 
 mapElement.addEventListener(
   "arcgisViewReadyChange",
