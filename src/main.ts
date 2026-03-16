@@ -1,30 +1,16 @@
 import "./styles.css";
 
-import { getVersioningStates } from "@arcgis/core/versionManagement/utils";
+import { getVersioningStates } from "@arcgis/core/versionManagement/utils.js";
 
 import "@arcgis/map-components/components/arcgis-editor";
 import "@arcgis/map-components/components/arcgis-map";
 import "@arcgis/map-components/components/arcgis-version-management";
 import "@arcgis/map-components/components/arcgis-zoom";
 
-import { defineCustomElements } from "@esri/calcite-components/dist/loader";
-defineCustomElements(window);
-
-const startEditButton = document.getElementById(
-  "start-edit",
-) as HTMLCalciteActionElement;
-
-const stopEditButton = document.getElementById(
-  "stop-edit",
-) as HTMLCalciteActionElement;
-
-const undoEditButton = document.getElementById(
-  "undo-edit",
-) as HTMLCalciteActionElement;
-
-const redoEditButton = document.getElementById(
-  "redo-edit",
-) as HTMLCalciteActionElement;
+const startEditButton = document.getElementById("start-edit") as HTMLCalciteActionElement;
+const stopEditButton = document.getElementById("stop-edit") as HTMLCalciteActionElement;
+const undoEditButton = document.getElementById("undo-edit") as HTMLCalciteActionElement;
+const redoEditButton = document.getElementById("redo-edit") as HTMLCalciteActionElement;
 
 function updateButtonsStartEdit(): void {
   startEditButton.active = true;
@@ -54,45 +40,38 @@ function handleMaybeError(result: any): void {
   }
 }
 
-const mapElement = document.querySelector("arcgis-map") as HTMLArcgisMapElement;
-const versionComponent = document.querySelector(
-  "arcgis-version-management",
-) as HTMLArcgisVersionManagementElement;
+const mapElement = document.querySelector("arcgis-map");
+const versionComponent = document.querySelector("arcgis-version-management")!;
 
-mapElement.addEventListener(
-  "arcgisViewReadyChange",
-  async (event: HTMLArcgisMapElement["arcgisViewReadyChange"]) => {
-    const { view } = event.target;
+mapElement?.addEventListener("arcgisViewReadyChange", async (event: HTMLArcgisMapElement["arcgisViewReadyChange"]) => {
+  const { view } = event.target;
 
-    versionComponent.view = view;
-    versionComponent.versioningStates = await getVersioningStates(view, false);
+  versionComponent.view = view;
+  versionComponent.versioningStates = await getVersioningStates(view, false);
 
-    const versioningState = await versionComponent.versioningStates
-      .getItemAt(0)
-      ?.load();
+  const versioningState = await versionComponent.versioningStates.getItemAt(0)?.load();
 
-    startEditButton.addEventListener("click", async () => {
-      const result = await versioningState?.startEditing();
-      if (result?.success) {
-        updateButtonsStartEdit();
-      }
-    });
+  startEditButton.addEventListener("click", async () => {
+    const result = await versioningState?.startEditing();
+    if (result?.success) {
+      updateButtonsStartEdit();
+    }
+  });
 
-    stopEditButton.addEventListener("click", async () => {
-      const result = await versioningState?.stopEditing(false);
-      if (result?.success) {
-        updateButtonsStopEdit();
-      }
-    });
+  stopEditButton.addEventListener("click", async () => {
+    const result = await versioningState?.stopEditing(false);
+    if (result?.success) {
+      updateButtonsStopEdit();
+    }
+  });
 
-    undoEditButton.addEventListener("click", async () => {
-      const result = await versioningState?.undo();
-      handleMaybeError(result);
-    });
+  undoEditButton.addEventListener("click", async () => {
+    const result = await versioningState?.undo();
+    handleMaybeError(result);
+  });
 
-    redoEditButton.addEventListener("click", async () => {
-      const result = await versioningState?.redo();
-      handleMaybeError(result);
-    });
-  },
-);
+  redoEditButton.addEventListener("click", async () => {
+    const result = await versioningState?.redo();
+    handleMaybeError(result);
+  });
+});
