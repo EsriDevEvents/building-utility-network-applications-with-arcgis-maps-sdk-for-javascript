@@ -34,8 +34,8 @@ function updateButtonsStopEdit(): void {
   redoEditButton.disabled = true;
 }
 
-function handleMaybeError(result: any): void {
-  if (!result.success) {
+function handleMaybeError(result?: { success?: boolean }): void {
+  if (!result?.success) {
     console.error(`Error: ${result}`);
   }
 }
